@@ -131,11 +131,62 @@ fun Date.humanizeDiff(date: Date = Date()): String {
             else -> "более чем через год"
         }
     }
+
 }
+
 
 enum class TimeUnits{
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(value: Int = 1): String {
+
+        return when(name){
+            "SECOND" -> "$value секунд" +
+            if (value !in 11..14) {
+                when ((value) % 10) {
+                    1 -> "у"
+                    in 2..4 -> "ы"
+                    else -> ""
+                }
+            } else {
+                ""
+            }
+            "MINUTE" -> "$value минут" +
+                    if (value !in 11..14) {
+                        when ((value) % 10) {
+                            1 -> "у"
+                            in 2..4 -> "ы"
+                            else -> ""
+                        }
+                    } else {
+                        ""
+                    }
+            "HOUR" -> "$value час" +
+                    if (value !in 11..14) {
+                        when ((value) % 10) {
+                            1 -> ""
+                            in 2..4 -> "а"
+                            else -> "ов"
+                        }
+                    } else {
+                        "ов"
+                    }
+            "DAY" -> "$value д" +
+                    if (value !in 11..14) {
+                        when ((value) % 10) {
+                            1 -> "ень"
+                            in 2..4 -> "ня"
+                            else -> "ней"
+                        }
+                    } else {
+                        "ней"
+                    }
+            else -> name
+        }
+    }
 }
+
+

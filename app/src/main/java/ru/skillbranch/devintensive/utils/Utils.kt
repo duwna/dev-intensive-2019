@@ -15,29 +15,34 @@ object Utils {
     }
 
 
-
     fun toInitials(firstName: String?, lastName: String?): String? {
 
-        when(firstName) {
-            " ", "", null -> return null
+        return when(firstName) {
+            " ", "", null -> {
+                when (lastName) {
+                    " ", "", null -> null
+                    else -> "${lastName[0].toUpperCase()}"
+                }
+            }
+            else -> {
+                when (lastName) {
+                    " ", "", null -> "${firstName[0].toUpperCase()}"
+                    else -> "${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}"
+                }
+            }
         }
-
-        val firstNameLetter = firstName?.get(0)?.toUpperCase()
-
-        when(lastName) {
-            " ", "", null -> return "$firstNameLetter"
-        }
-
-        val lastNameLetter = lastName?.get(0)?.toUpperCase()
-
-        return "$firstNameLetter$lastNameLetter"
 }
 
-    fun transliteration(fullName: String, divider: String = " "): String {
+    fun transliteration(fullName: String, divider: String = " "): String? {
+
+        when(fullName) {
+            "", " " -> return null
+        }
 
         val pair = parseFullName(fullName)
 
         fun changeLetters(str: String?): String?{
+
             var result = ""
             str?.toLowerCase()?.forEach { letter ->
                 when(letter){
@@ -74,12 +79,14 @@ object Utils {
                     'э' -> result += "e"
                     'ю' -> result += "yu"
                     'я' -> result += "ya"
+                    else -> result += letter
                 }
             }
-            return result.replaceFirst(result[0], result[0].toUpperCase())
+            return result.capitalize()
         }
 
         return if (pair.second != null)
+
             "${changeLetters(pair.first)}$divider${changeLetters(pair.second)}"
 
         else "${changeLetters(pair.first)}"
