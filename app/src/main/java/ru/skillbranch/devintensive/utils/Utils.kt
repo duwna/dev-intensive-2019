@@ -33,62 +33,63 @@ object Utils {
         }
 }
 
-    fun transliteration(fullName: String, divider: String = " "): String? {
+    fun transliteration(fullName: String?, divider: String = " "): String? {
 
         when(fullName) {
-            "", " " -> return null
+            "", " ", null -> return null
         }
 
-        val pair = parseFullName(fullName)
+        val alphabet = mapOf (
+            'а' to "a",
+            'б' to  "b",
+            'в' to  "v",
+            'г' to  "g",
+            'д' to  "d",
+            'е' to  "e",
+            'ё' to  "e",
+            'ж' to  "zh",
+            'з' to  "z",
+            'и' to  "i",
+            'й' to  "i",
+            'к' to  "k",
+            'л' to  "l",
+            'м' to  "m",
+            'н' to  "n",
+            'о' to  "o",
+            'п' to  "p",
+            'р' to  "r",
+            'с' to  "s",
+            'т' to  "t",
+            'у' to  "u",
+            'ф' to  "f",
+            'х' to  "h",
+            'ц' to  "c",
+            'ч' to  "ch",
+            'ш' to  "sh",
+            'щ' to  "sh'",
+            'ъ' to  "",
+            'ы' to  "i",
+            'ь' to  "",
+            'э' to  "e",
+            'ю' to  "yu",
+            'я' to  "ya",
+            ' ' to  divider
+        )
 
-        fun changeLetters(str: String?): String?{
+        var result = ""
 
-            var result = ""
-            str?.toLowerCase()?.forEach { letter ->
-                when(letter){
-                    'а' -> result += "a"
-                    'б' -> result += "b"
-                    'в' -> result += "v"
-                    'г' -> result += "g"
-                    'д' -> result += "d"
-                    'е' -> result += "e"
-                    'ё' -> result += "e"
-                    'ж' -> result += "zh"
-                    'з' -> result += "z"
-                    'и' -> result += "i"
-                    'й' -> result += "i"
-                    'к' -> result += "k"
-                    'л' -> result += "l"
-                    'м' -> result += "m"
-                    'н' -> result += "n"
-                    'о' -> result += "o"
-                    'п' -> result += "p"
-                    'р' -> result += "r"
-                    'с' -> result += "s"
-                    'т' -> result += "t"
-                    'у' -> result += "u"
-                    'ф' -> result += "f"
-                    'х' -> result += "h"
-                    'ц' -> result += "c"
-                    'ч' -> result += "ch"
-                    'ш' -> result += "sh"
-                    'щ' -> result += "sh'"
-                    'ъ' -> result += ""
-                    'ы' -> result += "i"
-                    'ь' -> result += ""
-                    'э' -> result += "e"
-                    'ю' -> result += "yu"
-                    'я' -> result += "ya"
-                    else -> result += letter
+        fullName?.forEach { letter ->
+            if(alphabet.containsKey(letter.toLowerCase())){
+                result += if (letter.isUpperCase()) {
+                    alphabet[letter.toLowerCase()]?.capitalize()
+                } else {
+                    alphabet[letter.toLowerCase()]
                 }
+            } else {
+                result += letter
             }
-            return result.capitalize()
         }
 
-        return if (pair.second != null)
-
-            "${changeLetters(pair.first)}$divider${changeLetters(pair.second)}"
-
-        else "${changeLetters(pair.first)}"
+        return result
     }
 }

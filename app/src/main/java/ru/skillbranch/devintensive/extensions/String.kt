@@ -1,7 +1,5 @@
 package ru.skillbranch.devintensive.extensions
 
-import androidx.core.text.htmlEncode
-
 fun String.truncate(value: Int = 16): String {
 
     return if(value < this.trim().length) {
@@ -13,5 +11,4 @@ fun String.truncate(value: Int = 16): String {
 
 fun String.stripHtml(): String {
     return this.replace(Regex("<.*?>"),"")
-
 }
