@@ -143,8 +143,8 @@ enum class TimeUnits{
 
     fun plural(value: Int = 1): String {
 
-        return when(name){
-            "SECOND" -> "$value секунд" +
+        return when(this){
+            SECOND -> "$value секунд" +
             if (value !in 11..14) {
                 when ((value) % 10) {
                     1 -> "у"
@@ -154,7 +154,7 @@ enum class TimeUnits{
             } else {
                 ""
             }
-            "MINUTE" -> "$value минут" +
+            MINUTE -> "$value минут" +
                     if (value !in 11..14) {
                         when ((value) % 10) {
                             1 -> "у"
@@ -164,7 +164,7 @@ enum class TimeUnits{
                     } else {
                         ""
                     }
-            "HOUR" -> "$value час" +
+            HOUR -> "$value час" +
                     if (value !in 11..14) {
                         when ((value) % 10) {
                             1 -> ""
@@ -174,7 +174,7 @@ enum class TimeUnits{
                     } else {
                         "ов"
                     }
-            "DAY" -> "$value д" +
+            DAY -> "$value д" +
                     if (value !in 11..14) {
                         when ((value) % 10) {
                             1 -> "ень"
@@ -184,7 +184,6 @@ enum class TimeUnits{
                     } else {
                         "ней"
                     }
-            else -> name
         }
     }
 }
