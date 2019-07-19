@@ -47,95 +47,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     }
 
+    fun sendAnswer() {
+        val (phrase, color) = benderObj.listenAnswer(et_message.text.toString())
+        val (r, g, b) = color
+        benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
+        textTxt.text = phrase
+        et_message.setText("")
+    }
+
     override fun onClick(v: View?) {
-
         if (v?.id == R.id.iv_send){
-
             hideKeyboard()
-            et_message.setText("")
-
-            val answer = et_message.text.toString()
-
-            when(benderObj.question) {
-                Bender.Question.NAME -> if(answer[0].isLowerCase()) {
-                    val textForTv = "Имя должно начинаться с заглавной буквы\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return
-                    }
-                Bender.Question.PROFESSION -> if(answer[0].isUpperCase()) {
-                    val textForTv = "Профессия должна начинаться со строчной буквы\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return
-                }
-                Bender.Question.MATERIAL -> if(answer.contains(Regex("[1-9]"))) {
-                    val textForTv = "Материал не должен содержать цифр\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return
-                }
-                Bender.Question.BDAY -> if(!answer.isDigitsOnly()) {
-                    val textForTv = "Год моего рождения должен содержать только цифры\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return
-                }
-                Bender.Question.SERIAL -> if(!(answer.isDigitsOnly() && answer.length == 7)) {
-                    val textForTv = "Серийный номер содержит только цифры и их 7\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return
-                }
-                Bender.Question.IDLE -> return
-            }
-
-            val (phrase, color) = benderObj.listenAnswer(answer.toLowerCase())
-            val (r, g, b) = color
-            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
-            textTxt.text = phrase
-
+            sendAnswer()
         }
     }
 
+
     override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
-
         if (p1 == EditorInfo.IME_ACTION_DONE) {
-
             hideKeyboard()
-            et_message.setText("")
-
-            val answer = et_message.text.toString()
-
-            when(benderObj.question) {
-                Bender.Question.NAME -> if(answer[0].isLowerCase()) {
-                    val textForTv = "Имя должно начинаться с заглавной буквы\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return true
-                }
-                Bender.Question.PROFESSION -> if(answer[0].isUpperCase()) {
-                    val textForTv = "Профессия должна начинаться со строчной буквы\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return true
-                }
-                Bender.Question.MATERIAL -> if(answer.contains(Regex("[1-9]"))) {
-                    val textForTv = "Материал не должен содержать цифр\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return true
-                }
-                Bender.Question.BDAY -> if(!answer.isDigitsOnly()) {
-                    val textForTv = "Год моего рождения должен содержать только цифры\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return true
-                }
-                Bender.Question.SERIAL -> if(!(answer.isDigitsOnly() && answer.length == 7)) {
-                    val textForTv = "Серийный номер содержит только цифры и их 7\n${benderObj.askQuestion()}"
-                    textTxt.text = textForTv
-                    return true
-                }
-                Bender.Question.IDLE -> return true
-            }
-
-            val (phrase, color) = benderObj.listenAnswer(et_message.text.toString().toLowerCase())
-            val (r, g, b) = color
-            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
-            textTxt.text = phrase
-
+            sendAnswer()
             return true
         }
         return false
