@@ -17,11 +17,9 @@ fun Activity.hideKeyboard() {
     hideKeyboard(if (currentFocus == null) View(this) else currentFocus)
 }
 
-
 fun Activity.isKeyboardOpen(): Boolean {
     val r = Rect()
     this.window.decorView.getWindowVisibleDisplayFrame(r)
     return this.windowManager.defaultDisplay.height - (r.bottom - r.top) > 100
 }
-
 fun Activity.isKeyboardClosed() = !isKeyboardOpen()

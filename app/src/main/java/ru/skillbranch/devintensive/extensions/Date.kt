@@ -9,17 +9,17 @@ const val HOUR = 60 * MINUTE
 const val DAY = 24 * HOUR
 
 
-fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy") : String {
+fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"): String {
 
     val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
     return dateFormat.format(this)
 }
 
-fun Date.add(value : Int, units : TimeUnits = TimeUnits.SECOND) : Date{
+fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
 
     var time = this.time
 
-    time += when(units){
+    time += when (units) {
         TimeUnits.SECOND -> value * SECOND
         TimeUnits.MINUTE -> value * MINUTE
         TimeUnits.HOUR -> value * HOUR
@@ -83,7 +83,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         }
     } else {
 
-        return when (val newTime =  this.time - date.time) {
+        return when (val newTime = this.time - date.time) {
 
             in 0..SECOND -> "только что"
 
@@ -135,7 +135,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 }
 
 
-enum class TimeUnits{
+enum class TimeUnits {
     SECOND,
     MINUTE,
     HOUR,
@@ -143,17 +143,17 @@ enum class TimeUnits{
 
     fun plural(value: Int = 1): String {
 
-        return when(this){
+        return when (this) {
             SECOND -> "$value секунд" +
-            if (value !in 11..14) {
-                when ((value) % 10) {
-                    1 -> "у"
-                    in 2..4 -> "ы"
-                    else -> ""
-                }
-            } else {
-                ""
-            }
+                    if (value !in 11..14) {
+                        when ((value) % 10) {
+                            1 -> "у"
+                            in 2..4 -> "ы"
+                            else -> ""
+                        }
+                    } else {
+                        ""
+                    }
             MINUTE -> "$value минут" +
                     if (value !in 11..14) {
                         when ((value) % 10) {

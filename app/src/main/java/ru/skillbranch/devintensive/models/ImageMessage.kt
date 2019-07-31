@@ -9,11 +9,11 @@ class ImageMessage(
     isIncoming: Boolean = false,
     date: Date = Date(),
     var image: String?
-): BaseMessage(id, from, chat, isIncoming, date) {
+) : BaseMessage(id, from, chat, isIncoming, date) {
 
 
     override fun formatMessage(): String = "${from?.firstName} " +
-                                            (if(isIncoming) "получил" else "отправил") +
-                                            " изображение \"$image\" $date"
+            (if (isIncoming) "получил" else "отправил") +
+            " изображение \"$image\" $date"
 }
 
