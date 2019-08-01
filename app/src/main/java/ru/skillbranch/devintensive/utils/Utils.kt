@@ -92,32 +92,20 @@ object Utils {
         return result
     }
 
-    fun validRepositoty(repository: String): Boolean = (
 
-            repository.contains(Regex(".*\\.com/[^/\\s]+")) && (
-
-
-            repository == "" || (
-                repository.startsWith("https://github.com/") ||
-                repository.startsWith("https://www.github.com/") ||
-                repository.startsWith("www.github.com/") ||
-                repository.startsWith("github.com/")
-                ) && !(
-                repository.endsWith("/myrep") ||
-                repository.endsWith("/security") ||
-                repository.endsWith("/customer-stories") ||
-                repository.endsWith("/nonprofit") ||
-                repository.endsWith("/marketplace") ||
-                repository.endsWith("/events") ||
-                repository.endsWith("/trending") ||
-                repository.endsWith("/collections") ||
-                repository.endsWith("/topics") ||
-                repository.endsWith("/features") ||
-                repository.endsWith("/pricing") ||
-                repository.endsWith("/enterprise") ||
-                repository.endsWith("/join")
-                )
-                    )
-    )
-
+    fun isRepositoryValid(repository: String): Boolean = repository == "" ||
+            repository.contains(Regex("^(https://)?(www.)?github\\.com/[^/ ]+(|/)$")) &&
+            !repository.endsWith("/myrep") &&
+            !repository.endsWith("/security") &&
+            !repository.endsWith("/customer-stories") &&
+            !repository.endsWith("/nonprofit") &&
+            !repository.endsWith("/marketplace") &&
+            !repository.endsWith("/events") &&
+            !repository.endsWith("/trending") &&
+            !repository.endsWith("/collections") &&
+            !repository.endsWith("/topics") &&
+            !repository.endsWith("/features") &&
+            !repository.endsWith("/pricing") &&
+            !repository.endsWith("/enterprise") &&
+            !repository.endsWith("/join")
 }

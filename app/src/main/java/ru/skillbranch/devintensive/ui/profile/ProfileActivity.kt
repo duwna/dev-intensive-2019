@@ -4,6 +4,7 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -14,9 +15,10 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
 
     companion object {
         const val IS_EDIT_MODE = "IS_EDIT_MODE"
@@ -59,17 +61,21 @@ class ProfileActivity : AppCompatActivity() {
         Log.d("isEditMode", "$isEditMode")
 
         btn_edit.setOnClickListener {
-
-            if (isEditMode) saveProfileInfo()
+            if (isEditMode) {
+                if (wr_repository.error != null) et_repository.setText("")
+                saveProfileInfo()
+            }
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
             Log.d("btn_edit", "$isEditMode")
 
         }
 
-        btn_switch_theme.setOnClickListener{
+        btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
         }
+
+        et_repository.addTextChangedListener(this)
     }
 
     private fun showCurrentMode(isEdit: Boolean) {
@@ -128,7 +134,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveProfileInfo(){
+    private fun saveProfileInfo() {
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
@@ -139,5 +145,16 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+
+    override fun afterTextChanged(p0: Editable?) {
+        if (Utils.isRepositoryValid(et_repository.text.toString())) {
+            wr_repository.error = null
+        } else {
+            wr_repository.error = "Невалидный адрес репозитория"
+        }
+    }
+
+    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 }
 
