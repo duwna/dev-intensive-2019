@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent" android:layout_height="match_parent"
               tools:context=".ui.profile.ProfileActivity"
               android:orientation="vertical">
 
@@ -28,11 +28,18 @@
 			             android:layout_marginEnd="@dimen/spacing_huge_32"
 			             android:layout_marginTop="36dp"/>
 
-			<ImageView android:id="@+id/iv_avatar"
-			           android:layout_width="@dimen/avatar_round_size"
-			           android:layout_height="@dimen/avatar_round_size"
-			           android:src="@drawable/avatar_default"
-			           android:layout_centerHorizontal="true"/>
+			<!--<ImageView android:id="@+id/iv_avatar"-->
+			<!--android:layout_width="@dimen/avatar_round_size"-->
+			<!--android:layout_height="@dimen/avatar_round_size"-->
+			<!--android:src="@drawable/avatar_default"-->
+			<!--android:layout_centerHorizontal="true"/>-->
+
+			<ru.skillbranch.devintensive.ui.custom.CircleImageView
+					android:id="@+id/iv_avatar"
+					android:layout_width="@dimen/avatar_round_size"
+					android:layout_height="@dimen/avatar_round_size"
+					android:layout_centerHorizontal="true"
+					android:src="@drawable/profile_bg"/>
 
 			<ImageButton android:layout_width="@dimen/btn_round_size_40"
 			             android:layout_height="@dimen/btn_round_size_40"

@@ -95,7 +95,6 @@ object Utils {
 
     fun isRepositoryValid(repository: String): Boolean = repository == "" ||
             repository.contains(Regex("^(https://)?(www.)?github\\.com/[^/ ]+(|/)$")) &&
-            !repository.endsWith("/myrep") &&
             !repository.endsWith("/security") &&
             !repository.endsWith("/customer-stories") &&
             !repository.endsWith("/nonprofit") &&
@@ -107,5 +106,7 @@ object Utils {
             !repository.endsWith("/features") &&
             !repository.endsWith("/pricing") &&
             !repository.endsWith("/enterprise") &&
-            !repository.endsWith("/join")
+            !repository.endsWith("/join") &&
+            !repository.endsWith("-") &&
+            !repository.contains(Regex("my.*rep"))
 }

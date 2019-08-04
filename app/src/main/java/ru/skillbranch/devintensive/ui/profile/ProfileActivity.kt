@@ -1,8 +1,6 @@
 package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
+import android.graphics.*
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -30,6 +28,7 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
@@ -76,7 +75,9 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
         }
 
         et_repository.addTextChangedListener(this)
+
     }
+
 
     private fun showCurrentMode(isEdit: Boolean) {
 
@@ -131,6 +132,20 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
             for ((k, v) in viewFields) {
                 v.text = it[k].toString()
             }
+        }
+
+        setAvatar()
+    }
+
+    private fun setAvatar() {
+
+        val firstName = et_first_name.text.toString()
+        val lastName = et_last_name.text.toString()
+
+        if(firstName.isNotEmpty() && lastName.isNotEmpty()){
+            iv_avatar.setImageBitmap(iv_avatar.drawDefaultAvatar(Utils.toInitials(firstName, lastName)!!))
+        } else {
+            iv_avatar.setImageResource(R.drawable.avatar_default)
         }
     }
 
