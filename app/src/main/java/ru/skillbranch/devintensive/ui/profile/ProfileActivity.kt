@@ -61,7 +61,7 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
 
         btn_edit.setOnClickListener {
             if (isEditMode) {
-                if (wr_repository.error != null) et_repository.setText("")
+                if (wr_repository.isErrorEnabled) et_repository.setText("")
                 saveProfileInfo()
             }
             isEditMode = !isEditMode
@@ -164,7 +164,9 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
     override fun afterTextChanged(p0: Editable?) {
         if (Utils.isRepositoryValid(et_repository.text.toString())) {
             wr_repository.error = null
+            wr_repository.isErrorEnabled = false
         } else {
+            wr_repository.isErrorEnabled = true
             wr_repository.error = "Невалидный адрес репозитория"
         }
     }
