@@ -142,7 +142,7 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
         val firstName = et_first_name.text.toString()
         val lastName = et_last_name.text.toString()
 
-        if(firstName.isNotEmpty() && lastName.isNotEmpty()){
+        if(firstName.isNotEmpty() || lastName.isNotEmpty()){
             iv_avatar.setImageBitmap(iv_avatar.drawDefaultAvatar(Utils.toInitials(firstName, lastName)!!))
         } else {
             iv_avatar.setImageResource(R.drawable.avatar_default)

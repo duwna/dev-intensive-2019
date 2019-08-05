@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.ui.custom
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
@@ -11,6 +12,7 @@ import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.*
 import ru.skillbranch.devintensive.R
+import kotlin.math.roundToInt
 
 class CircleImageView : androidx.appcompat.widget.AppCompatImageView {
 
@@ -23,7 +25,7 @@ class CircleImageView : androidx.appcompat.widget.AppCompatImageView {
     private val mCircleBackgroundPaint = Paint()
 
     private var mBorderColor = DEFAULT_BORDER_COLOR
-    private var mBorderWidth = DEFAULT_BORDER_WIDTH
+    private var mBorderWidth = dpsToPixels(DEFAULT_BORDER_WIDTH)
     private var mCircleBackgroundColor = DEFAULT_CIRCLE_BACKGROUND_COLOR
 
     private var mBitmap: Bitmap? = null
@@ -72,12 +74,12 @@ class CircleImageView : androidx.appcompat.widget.AppCompatImageView {
 
 
     fun setBorderWidth(@Dimension dp: Int) {
-        mBorderWidth = dp
+        mBorderWidth = dpsToPixels(dp)
         setup()
     }
 
     @Dimension
-    fun getBorderWidth(): Int = mBorderWidth
+    fun getBorderWidth(): Int = pixelsToDps(mBorderWidth)
 
     fun getBorderColor(): Int = mBorderColor
 
@@ -115,7 +117,8 @@ class CircleImageView : androidx.appcompat.widget.AppCompatImageView {
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
-        mBorderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_BORDER_WIDTH)
+        mBorderWidth =
+            a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, dpsToPixels(DEFAULT_BORDER_WIDTH))
         mBorderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
         mBorderOverlay = a.getBoolean(R.styleable.CircleImageView_cv_borderOverlay, DEFAULT_BORDER_OVERLAY)
 
@@ -342,12 +345,15 @@ class CircleImageView : androidx.appcompat.widget.AppCompatImageView {
         mBitmapShader!!.setLocalMatrix(mShaderMatrix)
     }
 
-    private fun pixelsToDps(context: Context, pixels: Int): Int {
-        val r = context.resources
-        return Math.round(pixels / (r.displayMetrics.densityDpi / 160f))
-    }
+    private fun dpsToPixels(dps: Int): Int = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, dps.toFloat(), resources.displayMetrics
+    ).toInt()
 
-    fun drawDefaultAvatar(initials: String, textSize: Float = 100f, textColor: Int = Color.WHITE): Bitmap {
+    private fun pixelsToDps(pixels: Int): Int =
+        pixels / (resources.displayMetrics.densityDpi / 160f).roundToInt()
+
+
+    fun drawDefaultAvatar(initials: String, textSize: Float = 128f, textColor: Int = Color.WHITE): Bitmap {
         val paint = Paint().apply {
             isAntiAlias = true
             this.textSize = textSize
