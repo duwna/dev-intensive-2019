@@ -3,7 +3,6 @@ package ru.skillbranch.devintensive.ui.profile
 import android.graphics.*
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -34,12 +33,12 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
 
         initViews(savedInstanceState)
         initViewModel()
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(IS_EDIT_MODE, isEditMode)
-        Log.d("onSaveInstanceState", "isEditMode")
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -57,7 +56,6 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
 
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
-        Log.d("isEditMode", "$isEditMode")
 
         btn_edit.setOnClickListener {
             if (isEditMode) {
@@ -66,8 +64,6 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
             }
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
-            Log.d("btn_edit", "$isEditMode")
-
         }
 
         btn_switch_theme.setOnClickListener {
@@ -128,6 +124,7 @@ class ProfileActivity : AppCompatActivity(), android.text.TextWatcher {
     }
 
     private fun updateUI(profile: Profile) {
+
         profile.toMap().also {
             for ((k, v) in viewFields) {
                 v.text = it[k].toString()
