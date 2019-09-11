@@ -51,7 +51,6 @@ class GroupActivity : AppCompatActivity() {
                 viewModel.handleSearchQuery(newText)
                 return true
             }
-
         })
         return super.onCreateOptionsMenu(menu)
     }
