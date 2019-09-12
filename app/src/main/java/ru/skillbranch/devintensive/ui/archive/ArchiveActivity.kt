@@ -1,9 +1,11 @@
 package ru.skillbranch.devintensive.ui.archive
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -55,7 +57,7 @@ class ArchiveActivity : AppCompatActivity() {
 
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
 
-        val touchCallback = ChatItemTouchHelperCallback(chatAdapter) { chatItem ->
+        val touchCallback = ChatItemTouchHelperCallback(chatAdapter, false) { chatItem ->
 
             Snackbar.make(
                 rv_archive_list,
@@ -64,11 +66,14 @@ class ArchiveActivity : AppCompatActivity() {
             ).apply {
                 setAction("Отмена") { viewModel.addToArchive(chatItem.id) }
                 view.setBackgroundColor(
-                    ContextCompat.getColor(
-                        this@ArchiveActivity,
-                        R.color.color_primary
-                    )
+                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                        ContextCompat.getColor(
+                            this@ArchiveActivity,
+                            R.color.color_primary
+                        )
+                    else Color.WHITE
                 )
+                
                 show()
             }
 

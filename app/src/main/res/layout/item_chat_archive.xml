@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
 		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/item_size"
 		android:padding="@dimen/spacing_normal_16"
-		android:background="@android:color/white">
+		android:background="?attr/colorBackground">
 
 	<ImageView
 			android:id="@+id/iv_avatar_archive"
@@ -24,7 +23,7 @@
 			android:layout_marginEnd="@dimen/spacing_normal_16"
 			android:layout_toEndOf="@id/iv_avatar_archive"
 			android:fontFamily="sans-serif-medium"
-			android:textColor="@color/color_primary"
+			android:textColor="?attr/colorTitle"
 			android:textSize="14sp"
 			android:text="@string/title_archive"
 			android:layout_toStartOf="@id/tv_date_archive"
@@ -36,7 +35,7 @@
 			android:layout_height="wrap_content"
 			android:layout_below="@id/tv_title_archive"
 			android:layout_toEndOf="@id/iv_avatar_archive"
-			android:textColor="@color/color_primary"
+			android:textColor="?attr/colorTitle"
 			android:textSize="14sp"
 			tools:text="John_Doe"
 			android:layout_marginEnd="@dimen/spacing_tiny_4"/>
@@ -48,7 +47,7 @@
 			android:layout_below="@id/tv_title_archive"
 			android:layout_marginEnd="@dimen/spacing_normal_16"
 			android:layout_toEndOf="@id/tv_message_author_archive"
-			android:textColor="@color/color_gray_dark"
+			android:textColor="?attr/colorMessage"
 			android:textSize="14sp"
 			tools:text="Когда я проходил интенсив, я мало спал"
 			android:layout_toStartOf="@id/tv_date_archive" />
@@ -60,7 +59,7 @@
 			android:layout_alignParentEnd="true"
 			android:textSize="10sp"
 			tools:text="18:00"
-			android:textColor="@color/color_gray_dark"
+			android:textColor="?attr/colorMessage"
 			android:layout_alignParentTop="true"/>
 
 	<TextView

@@ -13,7 +13,13 @@
 
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransitions</item>
-
+        <item name="colorToolbar">@color/color_primary</item>
+        <item name="colorMessage">@color/color_gray_dark</item>
+        <item name="colorTitle">@color/color_primary</item>
+        <item name="colorBackground">@android:color/white</item>
+        <item name="colorArchiveItemBackground">@color/color_gray</item>
+        <item name="colorIndicator">@color/color_green</item>
+        <item name="colorCounter">@color/color_primary</item>
 
     </style>
 

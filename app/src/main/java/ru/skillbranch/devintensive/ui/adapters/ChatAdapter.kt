@@ -1,10 +1,10 @@
 package ru.skillbranch.devintensive.ui.adapters
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -91,14 +91,20 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
 
             if (item.avatar == null) {
+
                 Glide.with(itemView)
                     .clear(iv_chat_single)
-                iv_chat_single.drawDefaultAvatar(item.initials)
+                if (item.initials.isNotEmpty())
+                    iv_chat_single.setImageBitmap(
+                        iv_chat_single.drawDefaultAvatar(item.initials, 50f)
+                    )
             } else {
                 Glide.with(itemView)
                     .load(item.avatar)
                     .into(iv_chat_single)
             }
+
+
 
             sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
 
@@ -120,11 +126,23 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
         }
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            itemView.setBackgroundColor(
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                    Color.LTGRAY
+                else Color.DKGRAY
+            )
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                    Color.WHITE
+                else
+                    itemView.resources.getColor(
+                        R.color.color_background_night,
+                        itemView.context.theme
+                    )
+            )
         }
     }
 
@@ -159,11 +177,23 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
         }
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            itemView.setBackgroundColor(
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                    Color.LTGRAY
+                else Color.DKGRAY
+            )
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                    Color.WHITE
+                else
+                    itemView.resources.getColor(
+                        R.color.color_background_night,
+                        itemView.context.theme
+                    )
+            )
         }
     }
 

@@ -86,7 +86,7 @@ class MainViewModel : ViewModel() {
             "",
             lastChat!!.lastMessageShort().first,
             unreadableMessageCount,
-            lastChat.lastMessageDate()!!.shortFormat(),
+            lastChat.lastMessageDate()?.shortFormat(),
             false,
             ChatType.ARCHIVE,
             lastChat.lastMessageShort().second

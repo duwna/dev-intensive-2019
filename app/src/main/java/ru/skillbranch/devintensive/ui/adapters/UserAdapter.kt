@@ -27,7 +27,7 @@ class UserAdapter(val listener: (UserItem) -> Unit) :
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) =
         holder.bind(items[position], listener)
 
-    fun updateData(data: List<UserItem>){
+    fun updateData(data: List<UserItem>) {
         val diffCallback = object : DiffUtil.Callback() {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
                 items[oldItemPosition].id == data[newItemPosition].id
@@ -51,21 +51,22 @@ class UserAdapter(val listener: (UserItem) -> Unit) :
         override val containerView: View?
             get() = itemView
 
-        fun bind(user: UserItem, listener: (UserItem) -> Unit){
+        fun bind(user: UserItem, listener: (UserItem) -> Unit) {
 
-            if(user.avatar != null){
+            if (user.avatar != null) {
                 Glide.with(itemView)
                     .load(user.avatar)
                     .into(iv_avatar_user)
             } else {
                 Glide.with(itemView).clear(iv_avatar_user)
-                iv_avatar_user.drawDefaultAvatar(user.initials ?: "??")
+                if (!user.initials.isNullOrEmpty())
+                    iv_avatar_user.setImageBitmap(iv_avatar_user.drawDefaultAvatar(user.initials, 50f))
             }
 
-            sv_indicator.visibility = if(user.isOnline) View.VISIBLE else View.GONE
+            sv_indicator.visibility = if (user.isOnline) View.VISIBLE else View.GONE
             tv_user_name.text = user.fullName
             tv_last_activity.text = user.lastActivity
-            iv_selected.visibility = if(user.isSelected) View.VISIBLE else View.GONE
+            iv_selected.visibility = if (user.isSelected) View.VISIBLE else View.GONE
 
             itemView.setOnClickListener { listener.invoke(user) }
 

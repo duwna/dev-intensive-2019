@@ -79,7 +79,7 @@ class GroupActivity : AppCompatActivity() {
         }
 
 
-        group_fab.setOnClickListener {
+        fab.setOnClickListener {
             viewModel.handleCreateGroup()
             finish()
             overridePendingTransition(R.anim.idle, R.anim.bottom_down)
@@ -96,8 +96,8 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private fun toggleFab(isShown: Boolean) {
-        if (isShown) group_fab.show()
-        else group_fab.hide()
+        if (isShown) fab.show()
+        else fab.hide()
     }
 
     private fun addChipToGroup(user: UserItem) {

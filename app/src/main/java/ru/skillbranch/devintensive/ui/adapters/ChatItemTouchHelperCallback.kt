@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.devintensive.R
@@ -12,6 +13,7 @@ import ru.skillbranch.devintensive.models.data.ChatItem
 
 class ChatItemTouchHelperCallback(
     val adapter: ChatAdapter,
+    val isAddingToArchive: Boolean = true,
     val swipeListener: (ChatItem) -> Unit
 ) : ItemTouchHelper.Callback() {
 
@@ -87,7 +89,10 @@ class ChatItemTouchHelperCallback(
         }
 
         with(bgPaint) {
-            color = itemView.resources.getColor(R.color.color_primary_dark, itemView.context.theme)
+            color = if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
+                itemView.resources.getColor(R.color.color_primary_dark, itemView.context.theme)
+            else
+                itemView.resources.getColor(R.color.color_accent_night, itemView.context.theme)
         }
 
         canvas.drawRect(bgRect, bgPaint)
@@ -95,14 +100,17 @@ class ChatItemTouchHelperCallback(
 
     private fun drawItem(canvas: Canvas, itemView: View, dX: Float) {
 
-        val icon = itemView.resources.
-            getDrawable(R.drawable.ic_archive_black_24dp, itemView.context.theme)
+        val icon = if (isAddingToArchive)
+            itemView.resources.getDrawable(R.drawable.ic_archive_black_24dp, itemView.context.theme)
+        else
+            itemView.resources.getDrawable(R.drawable.ic_unarchive_black_24dp, itemView.context.theme)
+
         val iconSize = itemView.resources.getDimensionPixelSize(R.dimen.icon_size)
         val space = itemView.resources.getDimensionPixelSize(R.dimen.spacing_normal_16)
 
         val margin = (itemView.bottom - itemView.top - iconSize) / 2
 
-        with(iconBounds){
+        with(iconBounds) {
             left = itemView.right + dX.toInt() + space
             top = itemView.top + margin
             right = itemView.right + dX.toInt() + iconSize + space
