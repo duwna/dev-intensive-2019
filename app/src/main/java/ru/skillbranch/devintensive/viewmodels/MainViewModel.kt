@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.mutableLiveData
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.data.Chat
@@ -83,7 +84,7 @@ class MainViewModel : ViewModel() {
             "",
             null,
             "",
-            "",
+            "Архив чатов",
             lastChat!!.lastMessageShort().first,
             unreadableMessageCount,
             lastChat.lastMessageDate()?.shortFormat(),
