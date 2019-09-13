@@ -168,7 +168,8 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
 
             with(tv_message_author_group) {
                 visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.author
+                val author = "@${item.author}"
+                text = author
             }
 
 
@@ -216,7 +217,8 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) :
 
             with(tv_message_author_archive) {
                 visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.author
+                val author = "@${item.author}"
+                text = author
             }
 
 

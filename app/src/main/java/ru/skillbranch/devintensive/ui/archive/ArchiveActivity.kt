@@ -1,11 +1,9 @@
 package ru.skillbranch.devintensive.ui.archive
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -42,7 +40,7 @@ class ArchiveActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == android.R.id.home){
+        return if (item.itemId == android.R.id.home) {
             finish()
             true
         } else
@@ -66,14 +64,12 @@ class ArchiveActivity : AppCompatActivity() {
             ).apply {
                 setAction("Отмена") { viewModel.addToArchive(chatItem.id) }
                 view.setBackgroundColor(
-                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO)
-                        ContextCompat.getColor(
-                            this@ArchiveActivity,
-                            R.color.color_primary
-                        )
-                    else Color.WHITE
+                    ContextCompat.getColor(
+                        this@ArchiveActivity,
+                        R.color.color_primary
+                    )
                 )
-                
+
                 show()
             }
 
